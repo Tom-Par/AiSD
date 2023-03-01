@@ -10,15 +10,24 @@ struct lnode {
 
 // a
 void write_out(lnode* L) {
-
+    while (L)
+    {
+        cout << L->key<< " ";
+        L = L->next;
+    }
+    cout<<endl;
+              
 };
 
 // b
-void sum(lnode* L) {
+int sum(lnode *L) {
     int result = 0;
-    while(L!=nullptr)
-        result += L->key;
+    while(L)
+    {
+        result += (L->key);
         L=L->next;
+    }
+    return result;
 };
 
 //c
@@ -27,7 +36,7 @@ void nth_element(int n, lnode *L) {
 };
 
 // d
-void insert(lnode* L, int x) {
+void insert(lnode* &L, int x) {
     L = new lnode(x, L);
 };
 
@@ -37,7 +46,7 @@ void insert_after_smaller(lnode *&L, int x) {
 };
 
 //f
-void remove(lnode* &L) {
+void remove(lnode* &L, int x) {
     lnode * t=L;
     L = t->next;
     delete t;
@@ -54,16 +63,15 @@ void destroy(lnode* &L) {
 };
 
 int main() {
-    lnode* L=NULL;
+    lnode* L = nullptr;
 
-    for(int i=0; i<10; i++)
-        insert(L,i*12);
 
-    while (L)
-    {
-        cout<<"Hello"<<endl;
-        cout << L->key << endl;
-        remove(L);
-    }
+    for(int i=10; i>=1; i--)
+        insert(L,i);
+
+    write_out(L);
+    cout << sum(L) << endl;
+    //remove(L);
+    
     
 }
