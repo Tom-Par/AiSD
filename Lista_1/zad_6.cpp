@@ -1,4 +1,6 @@
 #include <iostream>
+using namespace std;
+
 
 struct lnode {
     int key;
@@ -35,7 +37,7 @@ void insert_after_smaller(lnode *&L, int x) {
 };
 
 //f
-void remove(lnode* &L, int x) {
+void remove(lnode* &L) {
     lnode * t=L;
     L = t->next;
     delete t;
@@ -59,8 +61,9 @@ int main() {
 
     while (L)
     {
+        cout<<"Hello"<<endl;
         cout << L->key << endl;
-        remove(L)
+        remove(L);
     }
     
 }
