@@ -10,7 +10,7 @@ double oblicz(vector<double> a, double x) {
         result =a[i] + result*x;
     }
     return result;
-};
+}
 
 int main() {
     cout << oblicz({4,5,3,0,0,18}, 10) << endl;
