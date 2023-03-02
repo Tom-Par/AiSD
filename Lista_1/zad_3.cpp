@@ -26,7 +26,7 @@ int pow(float x, int n) {
 }
 
 int main() {
-    cout << pow_recursive(2, 1) << endl;
-    cout << pow(2, 1) << endl;
+    cout <<"Rekurencja: "<< pow_recursive(2, 19) << endl;
+    cout <<"Brak rekurencji: "<< pow(2, 19) << endl;
 
 }
