@@ -1,39 +1,38 @@
 #include <iostream>
-#include <cmath>
 
-using namespace std;
 
-double f(double x) {
-    return x * x;
+double f(double x){
+    return 3*x-1;
 }
 
-double bisection(double a, double b, double eps){
-    if (f(a) * f(b) > 0) {
-        cout << "Brak pierwiastków w tym przeziale";
-        return 0;
+void bisect(double f0, double f1, double eps){
+    if (f(f0) * f(f1) > 0 ){
+        std::cout << "Funkcja nie ma pierwiastkow w tym przedziale\n";
+        return;
     }
+    
+    double mid = f0;
 
-    double mid = a;
-
-    while((b-a) >= eps) {
-        mid = (a+b)/2;
-        if (f(mid)==0.0) {
+    while ((f1-f0) >= eps)
+    {
+        mid = (f0+f1)/2;
+        if (f(mid)==0.0){
             break;
         }
-        else if (f(mid) * f(a) < 0) {
-            b = mid;
-        }
-        else {
-            a = mid;
+        else if(f(mid) * f(f0) < 0){
+            f1 = mid;
+        }else{
+            f0 = mid;
         }
     }
-    cout << "Pierwiastek to "<<mid<<endl;
+
+    std::cout << "Pierwiastka funkcji jest rowna: " << mid <<"\n";
 }
 
-int main() {
-    double a = -12;
-    double b = 1;
-    double eps = 1e-10;
-
-    bisection(a,b,eps);
+int main()
+{
+    double f0 = 0;
+    double f1 = 0;
+    double eps = 1e-04;
+    bisect(f0, f1,eps);
 }

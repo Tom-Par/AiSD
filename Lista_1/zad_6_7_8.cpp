@@ -96,8 +96,25 @@ void reverse(lnode* &L) {
 }
 
 // zad 8
-void merge(lnode* L1, lnode* L2) {
 
+int compare = 0;
+lnode *merge(lnode *L1, lnode *L2) {
+    if (L1 == nullptr) 
+        return L2;
+  
+    if (L2 == nullptr)
+        return L1;
+
+    ++compare;
+   
+    if (L1->key < L2->key; ++compare) {              
+        L1->next = merge(L1->next, L2);    
+        return L1;                        
+    }
+    else {
+        L2->next = merge(L1, L2->next);
+        return L2;                       
+    }
 }
 
 int main() {
