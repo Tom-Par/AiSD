@@ -1,5 +1,6 @@
 #include <iostream>
 #include <sstream>
+#include <stack>
 
 using namespace std;
 
@@ -127,6 +128,100 @@ void pretty(node *t)
 	}
 }
 
+//4
+class BSTier {
+private: 
+    node* current;
+
+public:
+    BSTier(node* t): current(t) {}
+
+    bool operator!=(BSTier const& other) const {
+        return current != other.current;
+    }
+
+    BSTier& operator++() {
+        if(current->right) {
+            current = current->right;
+            while (current->left)
+                current = current->left;
+        } 
+        else
+        {
+            node* next = current->parent;
+            while (next&& next -> right==current) {
+                current=next;
+                next=next->parent;
+            }
+            current = next;
+        }
+        return *this;
+    }
+
+    int operator*() const {
+        return current->x;
+    }
+};
+
+BSTier begin(node* t) {
+    node* current = t;
+    while (current -> left)
+        current=current->left;
+
+    return BSTier(current);
+}
+
+BSTier end(node* t) {
+    return BSTier(nullptr);
+}
+
+//5
+class BSTIterator {
+private:
+    node* current;
+    std::stack<node*> nodeStack;
+
+public:
+    BSTIterator(node* t) : current(t) {}
+
+    bool operator!=(const BSTIterator& other) const {
+        return current != other.current;
+    }
+
+    BSTIterator& operator++() {
+        if (current->right) {
+            current = current->right;
+            while (current->left) {
+                nodeStack.push(current);
+                current = current->left;
+            }
+        } else if (!nodeStack.empty()) {
+            current = nodeStack.top();
+            nodeStack.pop();
+        } else {
+            current = nullptr;
+        }
+        return *this;
+    }
+
+    int operator*() const {
+        return current->x;
+    }
+};
+
+BSTIterator begin_(node* t) {
+    node* current = t;
+    std::stack<node*> nodeStack;
+    while (current->left) {
+        nodeStack.push(current);
+        current = current->left;
+    }
+    return BSTIterator(current);
+}
+
+BSTIterator end_(node* t) {
+    return BSTIterator(nullptr);
+}
 
 int main(int argc, char const *argv[])
 {
@@ -140,5 +235,15 @@ int main(int argc, char const *argv[])
    // pretty(t);
 
     //remove(t, 20);
-    inorder_do_recu(t, print_node);
+    inorder_do_recu(t, print_node); 
+
+    node* root = nullptr;
+
+    for (auto it = begin_(root); it != end_(root); ++it) {
+        int value = *it;
+        // Zrób coś z wartością
+    }
+
+    return 0;
 }
+
